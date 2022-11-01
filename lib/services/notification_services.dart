@@ -1,4 +1,4 @@
-
+/*
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -6,8 +6,8 @@ import 'package:get/get_core/src/get_main.dart';
 
 FlutterLocalNotificationsPlugin notificationsPlugin = FlutterLocalNotificationsPlugin();
 
-void NotifyHelper() async{
-  WidgetsFlutterBinding.ensureInitialized();
+class NotifyHelper{
+  //WidgetsFlutterBinding.ensureInitialized();
   AndroidInitializationSettings androidSettings = AndroidInitializationSettings("@mipmap/ic_launcher");
 
   DarwinInitializationSettings iosSettings = DarwinInitializationSettings(
@@ -17,12 +17,49 @@ void NotifyHelper() async{
     requestAlertPermission: true,
   );
 
-  InitializationSettings initializationSettings = InitializationSettings(
-    android: androidSettings,
-    iOS: iosSettings,
-  );
 
-  bool? initialized = await notificationsPlugin.initialize(initializationSettings);
 
-  Get.dialog(Text("Welcome to Notification"));
+  void showNotification() async {
+
+    InitializationSettings initializationSettings = InitializationSettings(
+      android: androidSettings,
+      iOS: iosSettings,
+    );
+
+    bool? initialized = await notificationsPlugin.initialize(initializationSettings);
+
+    Get.dialog(Text("Welcome to Notification"));
+
+    AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
+      "as-app",
+      "ASApp",
+      priority: Priority.max,
+      importance: Importance.max,
+    );
+
+    DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+
+    NotificationDetails notiDetails = NotificationDetails(
+      android: androidDetails,
+      iOS: iosDetails,
+    );
+
+    await notificationsPlugin.show(
+        0,
+        "Notificação teste",
+        "Seja bem vindo, queridinha!",
+        notiDetails
+    );
+
+
+  }
+
 }
+
+
+ */
+

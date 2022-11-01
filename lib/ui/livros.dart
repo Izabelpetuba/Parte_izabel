@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+//import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+//import 'package:get/get.dart';
 import 'package:notificacoes/services/theme_services.dart';
+
+//import '../main.dart';
+import '../services/notification_services.dart';
 
 class Livros extends StatefulWidget {
   const Livros({Key? key}) : super(key: key);
@@ -10,6 +15,21 @@ class Livros extends StatefulWidget {
 }
 
 class _LivrosState extends State<Livros> {
+ /*
+  var notifyHelper;
+  @override
+
+  void initState(){
+    super.initState();
+    notifyHelper=NotifyHelper();
+    notifyHelper.NotificationDetails();
+  }
+
+  */
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +51,7 @@ class _LivrosState extends State<Livros> {
       leading: GestureDetector(
         onTap: (){
           ThemeService().switchTheme();
+
         },
         child: Icon(Icons.nightlight_round,
         size: 20,),
