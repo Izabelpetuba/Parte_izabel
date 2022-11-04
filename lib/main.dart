@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -10,14 +10,35 @@ import 'package:notificacoes/services/theme_services.dart';
 import 'package:notificacoes/ui/livros.dart';
 import 'package:notificacoes/ui/theme.dart';
 
+FlutterLocalNotificationsPlugin notificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
-
-void main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
 
-
   runApp(const MyApp());
+
+  WidgetsFlutterBinding.ensureInitialized();
+  AndroidInitializationSettings androidSettings =
+      AndroidInitializationSettings("@mipmap/ic_launcher");
+
+  DarwinInitializationSettings iosSettings = DarwinInitializationSettings(
+    requestSoundPermission: true,
+    requestBadgePermission: true,
+    requestCriticalPermission: true,
+    requestAlertPermission: true,
+  );
+
+  InitializationSettings initializationSettings = InitializationSettings(
+    android: androidSettings,
+    iOS: iosSettings,
+  );
+
+  bool? initialized =
+      await notificationsPlugin.initialize(initializationSettings);
+
+  log("Notifications $initialized");
 }
 
 class MyApp extends StatelessWidget {
@@ -32,7 +53,6 @@ class MyApp extends StatelessWidget {
       theme: Themes.light,
       darkTheme: Themes.dark,
       themeMode: ThemeService().theme,
-
       home: Livros(),
     );
   }
